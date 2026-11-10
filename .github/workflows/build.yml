@@ -170,7 +170,8 @@ jobs:
 
   publish:
     needs: [build, windows]
-    if: github.event_name == 'push' || inputs.tag != ''
+    # push to main and manual runs publish dev; a call from release.yml publishes stable
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || inputs.tag != '')
     runs-on: ubuntu-24.04
     concurrency: { group: publish-pages, cancel-in-progress: false }
     permissions:
