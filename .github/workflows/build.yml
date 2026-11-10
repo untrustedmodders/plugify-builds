@@ -159,6 +159,9 @@ jobs:
           $uri = ([System.Uri]$chan).AbsoluteUri
           function mm { & $mm @args; if ($LASTEXITCODE) { throw "micromamba $args exited with $LASTEXITCODE" } }
           mm --version
+          Get-ChildItem -Force $base | Format-Table Mode, Name
+          & $mm info -r $base -n plugins
+          & $mm config list -r $base --sources
           mm list -r $base -n modules
           mm list -r $base -n plugins
           # update --all from the build channel, remove a standard package (drops the meta-package too), reinstall
