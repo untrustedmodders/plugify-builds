@@ -305,5 +305,27 @@
         }
       }
     }
-  }
+  },
+  "files": [
+    {
+      "package": "permissions-storage",
+      "source": "repo",
+      "path": "assets/storage.yml",
+      "dest": "configs/permissions/storage.yml",
+      "url": "https://raw.githubusercontent.com/fr0nch/permissions-storage/v0.1.1/assets/storage.yml",
+      "sha256": "885e5d0eb623ee6fcc9e15835177e31439f7da9fe1de206870aa473ae710111d"
+    },
+    {
+      "package": "plugify-plugin-s2sdk",
+      "source": "package",
+      "path": "translations.jsonc",
+      "dest": "data/translations.jsonc"
+    },
+    {
+      "package": "permissions-connector-s2",
+      "source": "package",
+      "path": "permissions-connector-s2.yaml",
+      "dest": "data/permissions-connector-s2.yaml"
+    }
+  ]
 }

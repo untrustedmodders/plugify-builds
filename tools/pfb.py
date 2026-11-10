@@ -319,9 +319,26 @@ def cmd_lock(b: Build, args):
     for n in modules:
         add_package(n, "module")
 
+    # Extra files for the full archive (plugin configs, translations), pinned to the locked component tags.
+    files = []
+    for f in b.cfg.get("files") or []:
+        name = f["package"].split("/")[-1]
+        if name not in packages:
+            die(f"files: {name} is not a package of the build")
+        e = {"package": name, "source": f.get("source", "repo"), "path": f["path"], "dest": f["dest"]}
+        check_file_dest(e["dest"])
+        if e["source"] == "repo":
+            p = packages[name]
+            e["url"] = f"https://raw.githubusercontent.com/{p['repo']}/{p['tag']}/{f['path']}"
+            e["sha256"] = file_sha256(download(e["url"], cache_dir(args) / "files" / p["tag"] / name / f["path"]))
+        elif e["source"] != "package":
+            die(f"files: unknown source {e['source']!r} (repo or package)")
+        files.append(e)
+        log(f"file {e['dest']}: {e['source']} {name} {f['path']}")
+
     # The composition is stored in the lock too: meta-packages of past releases are rebuilt from their locks.
     new = {"build": b.id, "composition": {"modules": modules, "plugins": plugins},
-           "hosts": hosts, "packages": packages}
+           "hosts": hosts, "packages": packages, "files": files}
     changes = diff_lock(old, new)
     if old and json.dumps(old, sort_keys=True) == json.dumps(new, sort_keys=True):
         log("lock unchanged")
@@ -376,7 +393,7 @@ def write_summary(b: Build, old, new, changes, out_dir: Path):
     """Title and body of the bot PR: title.txt, body.md, changed.txt."""
     out_dir.mkdir(parents=True, exist_ok=True)
     scope = b.dir.name
-    composition = old.get("composition") != new.get("composition")
+    composition = old.get("composition") != new.get("composition") or old.get("files") != new.get("files")
     feat = composition or any(not va or not vb or ver_tuple(va)[:2] != ver_tuple(vb)[:2] for _, va, vb, _ in changes)
     typ = "feat" if feat else "fix"
     if len(changes) == 1:
@@ -926,7 +943,8 @@ def stage_pack(b: Build, args, variant, host, os_, version, channel) -> Path:
     # pkgs/ (micromamba cache) ships empty: the cache itself is not part of the pack
     for d in ("configs", "data", "logs", "pkgs"):
         (base / d).mkdir(parents=True, exist_ok=True)
-    if variant == "full":  # build translations: full archive only, so host-only never overwrites server edits
+    if variant == "full":  # configs and translations: full archive only, so host-only never overwrites server edits
+        stage_files(b, args, os_, base)
         for f in build_data_files(b):
             dst = base / "data" / f.relative_to(b.dir / "data")
             dst.parent.mkdir(parents=True, exist_ok=True)
@@ -934,6 +952,35 @@ def stage_pack(b: Build, args, variant, host, os_, version, channel) -> Path:
     (base / "build.json").write_text(build_json(b, host, os_, version, channel))
     (base / ".condarc").write_text(condarc(b, channel))
     return stage
+
+
+def check_file_dest(dest: str):
+    """Extra files go to configs/ or data/ only. Gamedata and settings are rejected: those layers override the
+    package and would hide new signatures or settings of an updated plugin."""
+    top, _, rest = dest.partition("/")
+    if top not in ("configs", "data") or not rest or ".." in dest.split("/"):
+        die(f"files: dest {dest!r} must be under configs/ or data/")
+    if Path(rest).name.startswith(("gamedata", "settings")):
+        die(f"files: gamedata and settings are not allowed: {dest}")
+
+
+def stage_files(b: Build, args, os_: str, base: Path):
+    """Copy the lock `files` (plugin configs, translations) into the staged addons/plugify."""
+    lock = b.lock
+    for f in lock.get("files", []):
+        dst = base / f["dest"]
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        if f["source"] == "repo":
+            tag = lock["packages"][f["package"]]["tag"]
+            src = download(f["url"], cache_dir(args) / "files" / tag / f["package"] / f["path"], f["sha256"])
+            shutil.copy2(src, dst)
+        else:
+            with tarfile.open(pkg_file(args, lock["packages"][f["package"]]["files"][os_])) as t:
+                try:
+                    m = t.getmember(f["path"])
+                except KeyError:
+                    die(f"files: {f['path']} is not in the {f['package']} package")
+                dst.write_bytes(t.extractfile(m).read())
 
 
 def build_data_files(b: Build) -> list[Path]:

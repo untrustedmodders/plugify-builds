@@ -7,7 +7,7 @@ Current build: **Plugify Source 2** (`plugify-source2`, Counter-Strike 2).
 ## Layout
 
 ```
-builds/source2/build.yaml        build definition: hosts, plugins, language to module map, channel, pins
+builds/source2/build.yaml        build definition: hosts, plugins, language to module map, extra files, channel, pins
 builds/source2/build.lock.json   exact versions, asset URLs and sha256 (written by the bot)
 builds/source2/data/             optional build translations, copied to addons/plugify/data/ of full archives
 tools/pfb.py                     pipeline
@@ -15,6 +15,8 @@ tools/pfb.py                     pipeline
 ```
 
 Modules are selected automatically from the `language` field of the standard plugins (`modules: auto`).
+
+`files` in `build.yaml` adds plugin configs and translations to `configs/` and `data/` of the full archive: from the component repository at the locked tag (`source: repo`, sha256 in the lock) or from the conda package (`source: package`). host-only archives do not contain them and `mamba update` does not touch them. Gamedata and settings are rejected.
 
 ## Outputs
 

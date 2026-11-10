@@ -55,6 +55,16 @@ languages:            # manifest language to module package
   lua: plugify-module-lua
   rust: plugify-module-rust
 
+# Extra files of the full archive, relative to addons/plugify (configs/ or data/ only; no gamedata or settings).
+#   source repo:     path in the component repository at the locked tag (sha256 in the lock)
+#   source package:  path inside the locked conda package
+# Not part of host-only archives and not updated by mamba. Files in data/ override the package layer.
+files:
+  - { package: permissions-storage, source: repo, path: assets/storage.yml, dest: configs/permissions/storage.yml }
+  - { package: plugify-plugin-s2sdk, source: package, path: translations.jsonc, dest: data/translations.jsonc }
+  - { package: permissions-connector-s2, source: package, path: permissions-connector-s2.yaml,
+      dest: data/permissions-connector-s2.yaml }
+
 # Version constraints, for example  plugify-plugin-s2sdk: "<4"  (comma separated: ">=3.3,<4").
 pins: {}
 
