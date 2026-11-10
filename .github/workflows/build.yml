@@ -229,11 +229,10 @@ jobs:
         run: |
           mkdir -p site
           $PFB history --history work/history --repo "${{ github.repository }}"
-          # stable channel: meta-packages of all stable releases and their packages
-          if ls work/history/*.json >/dev/null 2>&1; then
-            $PFB channel --channel stable --history work/history --only-history
-            cp -r work/channel/* site/
-          fi
+          # stable channel: meta-packages of all stable releases and their packages (empty before the first release,
+          # it must exist anyway: dev packs list it in .condarc and micromamba fails on a missing channel)
+          $PFB channel --channel stable --history work/history --only-history
+          cp -r work/channel/$BUILD site/
           # dev channel: only the latest dev build (lock and version from the prerelease)
           if gh release download "$BUILD_ID-dev" -p build.lock.json -p builds.json -D devrel 2>/dev/null; then
             dv=$(jq -r .release.version devrel/builds.json)

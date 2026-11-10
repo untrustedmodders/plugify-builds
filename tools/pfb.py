@@ -527,8 +527,8 @@ def history_entries(args) -> list[tuple[str, dict]]:
 def cmd_channel(b: Build, args):
     version = args.version or b.default_version()
     entries = history_entries(args) + ([] if args.only_history else [(version, b.lock)])
-    if not entries:
-        die("empty channel: no current build and no history")
+    if not entries:  # still publish an empty channel: a missing one listed in .condarc makes micromamba fail
+        log("channel: no builds yet, writing an empty channel")
     root = channel_dir(b, args, args.channel)
     shutil.rmtree(root, ignore_errors=True)
     subdirs = ["noarch"] + [p["conda"] for p in b.platforms.values()]
