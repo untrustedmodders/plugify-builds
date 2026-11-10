@@ -1,0 +1,256 @@
+# Build and check Plugify Source 2 packs.
+#   pull_request: build and checks, archives as workflow artifacts (7 days);
+#   push to main: same, plus the plugify-source2-dev prerelease and the source2-dev channel;
+#   workflow_call from release.yml: stable release, assets to the release, source2 channel, index.json.
+name: build
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_call:
+    inputs:
+      version: { type: string, required: true }
+      tag: { type: string, required: true }
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  BUILD: source2
+  BUILD_ID: plugify-source2
+  PFB: python3 tools/pfb.py --build source2
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+      channel: ${{ steps.ver.outputs.channel }}
+      tag: ${{ steps.ver.outputs.tag }}
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyyaml
+
+      - name: Version and channel
+        id: ver
+        run: |
+          base=$(python3 -c "import json;print(json.load(open('.release-please-manifest.json'))['builds/$BUILD'])")
+          if [ -n "${{ inputs.tag }}" ]; then
+            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+            echo "channel=stable" >> "$GITHUB_OUTPUT"
+            echo "tag=${{ inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            # dev: next patch version + run number; conda version is X.Y.Z.devN
+            next=$(python3 -c "a,b,c='$base'.split('.');print(f'{a}.{b}.{int(c)+1}')")
+            echo "version=${next}-dev.${{ github.run_number }}+$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+            echo "channel=dev" >> "$GITHUB_OUTPUT"
+            echo "tag=$BUILD_ID-dev" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Cache downloads
+        uses: actions/cache@v4
+        with:
+          path: .cache
+          key: pfb-${{ hashFiles('builds/*/build.lock.json') }}
+          restore-keys: pfb-
+
+      - name: Previous stable builds
+        id: prev
+        run: |
+          $PFB history --history work/history --repo "${{ github.repository }}" --latest-file prev.txt
+          echo "version=$(cat prev.txt)" >> "$GITHUB_OUTPUT"
+
+      - name: Core commit
+        id: core
+        run: echo "commit=$(jq -r '.hosts.launcher.core.commit' builds/$BUILD/build.lock.json)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache plug
+        id: plug-cache
+        uses: actions/cache@v4
+        with:
+          path: plug-bin
+          key: plug-${{ steps.core.outputs.commit }}
+
+      - name: Build plug (core test app)
+        if: steps.plug-cache.outputs.cache-hit != 'true'
+        run: |
+          sudo apt-get update && sudo apt-get install -y ninja-build g++-14
+          git clone https://github.com/untrustedmodders/plugify core
+          git -C core checkout ${{ steps.core.outputs.commit }}
+          git -C core submodule update --init --recursive
+          # FetchContent clones with GIT_SHALLOW, which cannot check out a commit hash: clone such deps in full here
+          deps=()
+          while read -r name tag; do
+            repo=$(sed -n "s/^set(PLUGIFY_${name}_REPO \"\([^\"]*\)\".*/\1/p" core/cmake/PlugifyBuildOptions.cmake)
+            git clone -q "$repo" "deps/$name" && git -C "deps/$name" checkout -q "$tag"
+            deps+=("-DFETCHCONTENT_SOURCE_DIR_${name}=$PWD/deps/$name")
+          done < <(sed -n 's/^set(PLUGIFY_\([A-Z0-9]*\)_TAG "\([0-9a-f]\{40\}\)".*/\1 \2/p' core/cmake/PlugifyBuildOptions.cmake)
+          cmake -S core -B core/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_C_COMPILER=gcc-14 -DPLUGIFY_BUILD_TESTS=ON "${deps[@]}"
+          cmake --build core/build --target plug
+          mkdir -p plug-bin && cp core/build/test/plug/plug plug-bin/
+
+      - name: Fetch (sha256)
+        run: $PFB fetch
+
+      - name: Channel
+        run: $PFB channel --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }} --history work/history
+
+      - name: Environments
+        run: $PFB envs --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }}
+
+      - name: Verify
+        run: $PFB verify --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }}
+
+      - name: Smoke (plug)
+        run: $PFB smoke --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }} --plug plug-bin/plug
+
+      - name: Upgrade from previous stable
+        if: steps.prev.outputs.version != '' && steps.prev.outputs.version != steps.ver.outputs.version
+        run: >
+          $PFB upgrade-test --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }}
+          --history work/history --prev "${{ steps.prev.outputs.version }}"
+
+      - name: Assemble
+        run: $PFB assemble --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }} --out dist
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
+      # Channel for the Windows check (current version only, no history).
+      - run: $PFB channel --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }} --work work-win
+      - uses: actions/upload-artifact@v4
+        with:
+          name: channel
+          path: work-win/channel/
+          retention-days: 7
+
+  # Environments are built on Linux with --platform win-64: check that the Windows micromamba of the host handles them.
+  windows:
+    needs: build
+    runs-on: windows-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: dist }
+      - uses: actions/download-artifact@v4
+        with: { name: channel, path: channel }
+      - name: micromamba.exe on the Windows pack
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $zip = Get-ChildItem dist -Filter "$env:BUILD_ID-launcher-windows-*.zip" | Where-Object { $_.Name -notlike '*-host-only.zip' } | Select-Object -First 1
+          Expand-Archive $zip.FullName -DestinationPath game
+          $base = Resolve-Path 'game/csgo/addons/plugify'
+          $mm = Join-Path $base 'bin/win64/micromamba.exe'
+          $chan = (Get-ChildItem channel -Directory | Select-Object -First 1).FullName
+          $uri = ([System.Uri]$chan).AbsoluteUri
+          function mm { & $mm @args; if ($LASTEXITCODE) { throw "micromamba $args exited with $LASTEXITCODE" } }
+          mm --version
+          mm list -r $base -n modules
+          mm list -r $base -n plugins
+          # update --all from the build channel, remove a standard package (drops the meta-package too), reinstall
+          mm update -y --offline -r $base -n plugins --override-channels -c $uri --all
+          mm remove -y --offline -r $base -n plugins plugify-plugin-dyncall
+          mm install -y --offline -r $base -n plugins --override-channels -c $uri "$env:BUILD_ID-plugins"
+          mm list -r $base -n plugins
+
+  publish:
+    needs: [build, windows]
+    if: github.event_name == 'push' || inputs.tag != ''
+    runs-on: ubuntu-24.04
+    concurrency: { group: publish-pages, cancel-in-progress: false }
+    permissions:
+      contents: write
+      pages: write
+      id-token: write
+      attestations: write
+    environment: { name: github-pages }
+    env:
+      GH_TOKEN: ${{ github.token }}
+      VERSION: ${{ needs.build.outputs.version }}
+      CHANNEL: ${{ needs.build.outputs.channel }}
+      TAG: ${{ needs.build.outputs.tag }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyyaml
+      - uses: actions/download-artifact@v4
+        with: { name: dist, path: dist }
+      - uses: actions/cache/restore@v4
+        with:
+          path: .cache
+          key: pfb-${{ hashFiles('builds/*/build.lock.json') }}
+          restore-keys: pfb-
+
+      - name: Release notes
+        run: |
+          if [ "$CHANNEL" = stable ]; then
+            gh release view "$TAG" --json body -q .body > notes.md
+          else
+            git log -n 20 --format='- %s (%h)' > notes.md
+          fi
+
+      - name: SHA256SUMS, builds.json
+        run: $PFB meta --version "$VERSION" --channel "$CHANNEL" --tag "$TAG" --repo "${{ github.repository }}" --out dist --changelog notes.md
+
+      - uses: actions/attest-build-provenance@v2
+        with:
+          subject-path: dist/*
+
+      - name: Upload to release
+        run: |
+          if [ "$CHANNEL" = stable ]; then
+            gh release upload "$TAG" dist/* --clobber
+          else
+            gh release delete "$TAG" --cleanup-tag -y || true
+            gh release create "$TAG" dist/* --prerelease --target "$GITHUB_SHA" \
+              --title "Plugify Source 2 $VERSION (dev)" --notes-file notes.md
+          fi
+
+      - name: Pages (channels + index.json)
+        run: |
+          mkdir -p site
+          $PFB history --history work/history --repo "${{ github.repository }}"
+          # stable channel: meta-packages of all stable releases and their packages
+          if ls work/history/*.json >/dev/null 2>&1; then
+            $PFB channel --channel stable --history work/history --only-history
+            cp -r work/channel/* site/
+          fi
+          # dev channel: only the latest dev build (lock and version from the prerelease)
+          if gh release download "$BUILD_ID-dev" -p build.lock.json -p builds.json -D devrel 2>/dev/null; then
+            dv=$(jq -r .release.version devrel/builds.json)
+            $PFB --lock devrel/build.lock.json channel --channel dev --version "$dv"
+            cp -r work/channel/$BUILD-dev site/
+          fi
+          $PFB index --repo "${{ github.repository }}" --out site/index.json
+          du -sh site
+
+      - uses: actions/upload-pages-artifact@v3
+        with: { path: site }
+      - uses: actions/deploy-pages@v4
+
+      - name: Notify site
+        env:
+          SITE_TOKEN: ${{ secrets.SITE_DISPATCH_TOKEN }}
+        if: env.SITE_TOKEN != ''
+        run: >
+          curl -fsS -X POST -H "Authorization: Bearer $SITE_TOKEN" -H "Accept: application/vnd.github+json"
+          https://api.github.com/repos/untrustedmodders/untrustedmodders.github.io/dispatches
+          -d '{"event_type":"builds-updated","client_payload":{"build":"${{ env.BUILD_ID }}","version":"${{ env.VERSION }}","channel":"${{ env.CHANNEL }}"}}'
+
+      - name: Notify Discord
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+        if: env.DISCORD_WEBHOOK != '' && env.CHANNEL == 'stable'
+        run: >
+          curl -fsS -H "Content-Type: application/json" "$DISCORD_WEBHOOK"
+          -d "{\"content\":\"Plugify Source 2 $VERSION: https://github.com/${{ github.repository }}/releases/tag/$TAG\"}"

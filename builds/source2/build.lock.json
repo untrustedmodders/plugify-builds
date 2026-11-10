@@ -1,0 +1,309 @@
+{
+  "build": "plugify-source2",
+  "composition": {
+    "modules": [
+      "plugify-module-cpp",
+      "plugify-module-golang"
+    ],
+    "plugins": [
+      "plugify-plugin-s2sdk",
+      "plugify-plugin-polyhook",
+      "plugify-plugin-configs",
+      "plugify-plugin-translations",
+      "plugify-plugin-permissions",
+      "plugify-plugin-dyncall",
+      "permissions-storage",
+      "permissions-connector-s2"
+    ]
+  },
+  "hosts": {
+    "launcher": {
+      "repo": "untrustedmodders/plugify-source2-launcher",
+      "version": "2.5.4",
+      "tag": "v2.5.4",
+      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.4",
+      "core": {
+        "version": "3.1.0",
+        "commit": "6579104a01a49d26292381763d26c6c6ed790be8"
+      },
+      "files": {
+        "linux": {
+          "name": "plugify-source2-launcher-build-linuxsteamrt64-6c6c7f8.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.4/plugify-source2-launcher-build-linuxsteamrt64-6c6c7f8.tar.bz2",
+          "sha256": "346a4856a277103ed0f2aadb999254b30273cde12ccd78521632183f80e2502e",
+          "size": 15518936
+        },
+        "windows": {
+          "name": "plugify-source2-launcher-build-win64-6c6c7f8.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.4/plugify-source2-launcher-build-win64-6c6c7f8.tar.bz2",
+          "sha256": "e5718810084d86d0ad6b7c38f0378513c45600a1c116df23c8552fe8721207a0",
+          "size": 6252278
+        }
+      }
+    },
+    "runtime": {
+      "repo": "untrustedmodders/plugify-source2-launcher",
+      "version": "2.5.4",
+      "tag": "v2.5.4",
+      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.4",
+      "core": {
+        "version": "3.1.0",
+        "commit": "6579104a01a49d26292381763d26c6c6ed790be8"
+      },
+      "files": {
+        "linux": {
+          "name": "plugify-source2-runtime-build-linuxsteamrt64-6c6c7f8.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.4/plugify-source2-runtime-build-linuxsteamrt64-6c6c7f8.tar.bz2",
+          "sha256": "fda744d9ad0d33db681df8d9f3a68b2a31490b168bf2c1faf997f101585e21eb",
+          "size": 15558614
+        }
+      }
+    },
+    "metamod": {
+      "repo": "untrustedmodders/plugify-metamod-loader",
+      "version": "2.1.4",
+      "tag": "v2.1.4",
+      "release_url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/tag/v2.1.4",
+      "core": {
+        "version": "3.1.0",
+        "commit": "978ec86689b7d52e5a9bc56b52d573c489d169a3"
+      },
+      "files": {
+        "linux": {
+          "name": "plugify-metamod-loader-build-linuxsteamrt64-2d1e135.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/download/v2.1.4/plugify-metamod-loader-build-linuxsteamrt64-2d1e135.tar.bz2",
+          "sha256": "c9d55dd46604a2c76aae871b0f29d8adf595f345a0828e813b552bf31efe3591",
+          "size": 11233057
+        },
+        "windows": {
+          "name": "plugify-metamod-loader-build-win64-2d1e135.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/download/v2.1.4/plugify-metamod-loader-build-win64-2d1e135.tar.bz2",
+          "sha256": "f6e7dc1f1533b18c0f56581f1d616320605f52da54cc009011230d0da17a5d90",
+          "size": 5305599
+        }
+      }
+    }
+  },
+  "packages": {
+    "plugify-plugin-s2sdk": {
+      "kind": "plugin",
+      "repo": "untrustedmodders/plugify-plugin-s2sdk",
+      "version": "3.3.1",
+      "tag": "v3.3.1",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.3.1",
+      "channel": "https://untrustedmodders.github.io/plugify-plugin-s2sdk/",
+      "files": {
+        "linux": {
+          "name": "plugify-plugin-s2sdk-3.3.1-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.3.1/plugify-plugin-s2sdk-3.3.1-linux_64.tar.bz2",
+          "sha256": "65aa115509a005538c11b90c5b6fef78eb94c53a0add4f279c8488d958696402",
+          "size": 6992037
+        },
+        "windows": {
+          "name": "plugify-plugin-s2sdk-3.3.1-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.3.1/plugify-plugin-s2sdk-3.3.1-win_64.tar.bz2",
+          "sha256": "cd923fe385e7c26151fb69fbc7f0c881cc43106d04bc3094f5252fac25ca88cf",
+          "size": 1499861
+        }
+      }
+    },
+    "plugify-plugin-polyhook": {
+      "kind": "plugin",
+      "repo": "untrustedmodders/plugify-plugin-polyhook",
+      "version": "2.5.9",
+      "tag": "v2.5.9",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-polyhook/releases/tag/v2.5.9",
+      "channel": "https://untrustedmodders.github.io/plugify-plugin-polyhook/",
+      "files": {
+        "linux": {
+          "name": "plugify-plugin-polyhook-2.5.9-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-polyhook/releases/download/v2.5.9/plugify-plugin-polyhook-2.5.9-linux_64.tar.bz2",
+          "sha256": "7d3ee78bcb3c7afd6b4d14f7de4e8e57b7530bcee7104c964f4fdd9f8aeaaf36",
+          "size": 2679303
+        },
+        "windows": {
+          "name": "plugify-plugin-polyhook-2.5.9-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-polyhook/releases/download/v2.5.9/plugify-plugin-polyhook-2.5.9-win_64.tar.bz2",
+          "sha256": "775dde6ed964337f4c2983ba5e6b9b2e4e0eebb4fc3ddb78e87c93ef0ff53f9b",
+          "size": 1030339
+        }
+      }
+    },
+    "plugify-plugin-configs": {
+      "kind": "plugin",
+      "repo": "untrustedmodders/plugify-plugin-configs",
+      "version": "2.1.2",
+      "tag": "v2.1.2",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-configs/releases/tag/v2.1.2",
+      "channel": "https://untrustedmodders.github.io/plugify-plugin-configs/",
+      "files": {
+        "linux": {
+          "name": "plugify-plugin-configs-2.1.2-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-configs/releases/download/v2.1.2/plugify-plugin-configs-2.1.2-linux_64.tar.bz2",
+          "sha256": "48dbbfb8e0e5ba1089d9303f1710c02ff088388e5c5b34bea68db19a7f5d2729",
+          "size": 3386480
+        },
+        "windows": {
+          "name": "plugify-plugin-configs-2.1.2-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-configs/releases/download/v2.1.2/plugify-plugin-configs-2.1.2-win_64.tar.bz2",
+          "sha256": "42050a9da227ab7fadc45cf52cc57ab350e673b2baa188ac1d895776193aa3a7",
+          "size": 602840
+        }
+      }
+    },
+    "plugify-plugin-translations": {
+      "kind": "plugin",
+      "repo": "untrustedmodders/plugify-plugin-translations",
+      "version": "1.0.3",
+      "tag": "v1.0.3",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/tag/v1.0.3",
+      "channel": "https://untrustedmodders.github.io/plugify-plugin-translations/",
+      "files": {
+        "linux": {
+          "name": "plugify-plugin-translations-1.0.3-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/download/v1.0.3/plugify-plugin-translations-1.0.3-linux_64.tar.bz2",
+          "sha256": "d6000bc43c2531ebd047f3c6a3bc179948017f6cd6022788327892388c977b3f",
+          "size": 1257124
+        },
+        "windows": {
+          "name": "plugify-plugin-translations-1.0.3-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/download/v1.0.3/plugify-plugin-translations-1.0.3-win_64.tar.bz2",
+          "sha256": "e314f231b381178b1cbaa58093b07f101ef6310491c84f91042325f7386f18a7",
+          "size": 92718
+        }
+      }
+    },
+    "plugify-plugin-permissions": {
+      "kind": "plugin",
+      "repo": "untrustedmodders/plugify-plugin-permissions",
+      "version": "1.3.1",
+      "tag": "v1.3.1",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-permissions/releases/tag/v1.3.1",
+      "channel": "https://untrustedmodders.github.io/plugify-plugin-permissions/",
+      "files": {
+        "linux": {
+          "name": "plugify-plugin-permissions-1.3.1-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-permissions/releases/download/v1.3.1/plugify-plugin-permissions-1.3.1-linux_64.tar.bz2",
+          "sha256": "9ab7f4cdba01b3ffac3c1dcb1964b48b8d2308de8ef12aeb90967fd10e27c7ac",
+          "size": 1381190
+        },
+        "windows": {
+          "name": "plugify-plugin-permissions-1.3.1-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-permissions/releases/download/v1.3.1/plugify-plugin-permissions-1.3.1-win_64.tar.bz2",
+          "sha256": "3092eeabd423ed20cfe21b144165c1ad983c9b03d3a106ac35a51aed0850a1c4",
+          "size": 100328
+        }
+      }
+    },
+    "plugify-plugin-dyncall": {
+      "kind": "plugin",
+      "repo": "untrustedmodders/plugify-plugin-dyncall",
+      "version": "2.0.9",
+      "tag": "v2.0.9",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-dyncall/releases/tag/v2.0.9",
+      "channel": "https://untrustedmodders.github.io/plugify-plugin-dyncall/",
+      "files": {
+        "linux": {
+          "name": "plugify-plugin-dyncall-2.0.9-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-dyncall/releases/download/v2.0.9/plugify-plugin-dyncall-2.0.9-linux_64.tar.bz2",
+          "sha256": "b765126f963885839ab7589424698ed8cff6f15ca690a1e0b80ba5bfee878734",
+          "size": 187454
+        },
+        "windows": {
+          "name": "plugify-plugin-dyncall-2.0.9-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-dyncall/releases/download/v2.0.9/plugify-plugin-dyncall-2.0.9-win_64.tar.bz2",
+          "sha256": "560600f8d0c1cd78b9c6b67669de579883a82694d9c3431a5753344d40216c4e",
+          "size": 24916
+        }
+      }
+    },
+    "permissions-storage": {
+      "kind": "plugin",
+      "repo": "fr0nch/permissions-storage",
+      "version": "0.1.1",
+      "tag": "v0.1.1",
+      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v0.1.1",
+      "channel": "https://fr0nch.github.io/permissions-storage/",
+      "files": {
+        "linux": {
+          "name": "permissions-storage-0.1.1-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v0.1.1/permissions-storage-0.1.1-linux_64.tar.bz2",
+          "sha256": "7d09a1e53fcef49709fb549b5381ab7a075e9d014c15e82e4889967711af0dd2",
+          "size": 4807161
+        },
+        "windows": {
+          "name": "permissions-storage-0.1.1-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v0.1.1/permissions-storage-0.1.1-win_64.tar.bz2",
+          "sha256": "742041dd2ed28644c4c841746cd30ece0ac6af1a234d64209060b05250b3403d",
+          "size": 4698428
+        }
+      }
+    },
+    "permissions-connector-s2": {
+      "kind": "plugin",
+      "repo": "fr0nch/permissions-connector-s2",
+      "version": "0.1.5",
+      "tag": "v0.1.5",
+      "release_url": "https://github.com/fr0nch/permissions-connector-s2/releases/tag/v0.1.5",
+      "channel": "https://fr0nch.github.io/permissions-connector-s2/",
+      "files": {
+        "linux": {
+          "name": "permissions-connector-s2-0.1.5-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v0.1.5/permissions-connector-s2-0.1.5-linux_64.tar.bz2",
+          "sha256": "faa6b76ab05c26a2f31c07aa3e189d7ef9ecf398ddea5a6562c9c8a59735c2a0",
+          "size": 1830439
+        },
+        "windows": {
+          "name": "permissions-connector-s2-0.1.5-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v0.1.5/permissions-connector-s2-0.1.5-win_64.tar.bz2",
+          "sha256": "a5e9b1a78ef2990cf3883f24b9fba5435d6d16fbb5855163b257c60f44477dad",
+          "size": 1759936
+        }
+      }
+    },
+    "plugify-module-cpp": {
+      "kind": "module",
+      "repo": "untrustedmodders/plugify-module-cpp",
+      "version": "2.4.5",
+      "tag": "v2.4.5",
+      "release_url": "https://github.com/untrustedmodders/plugify-module-cpp/releases/tag/v2.4.5",
+      "channel": "https://untrustedmodders.github.io/plugify-module-cpp/",
+      "files": {
+        "linux": {
+          "name": "plugify-module-cpp-2.4.5-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-module-cpp/releases/download/v2.4.5/plugify-module-cpp-2.4.5-linux_64.tar.bz2",
+          "sha256": "e2e8790d1c9b32b5efb17bbafbef2c022e9c2d8dd0ae626d6c5ce67cd1721f44",
+          "size": 634728
+        },
+        "windows": {
+          "name": "plugify-module-cpp-2.4.5-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-module-cpp/releases/download/v2.4.5/plugify-module-cpp-2.4.5-win_64.tar.bz2",
+          "sha256": "eaccf099e34515562050e88decaf4f6d30f064cb3d2d3b4a7623fd93fe2e6bfc",
+          "size": 150696
+        }
+      }
+    },
+    "plugify-module-golang": {
+      "kind": "module",
+      "repo": "untrustedmodders/plugify-module-golang",
+      "version": "2.7.5",
+      "tag": "v2.7.5",
+      "release_url": "https://github.com/untrustedmodders/plugify-module-golang/releases/tag/v2.7.5",
+      "channel": "https://untrustedmodders.github.io/plugify-module-golang/",
+      "files": {
+        "linux": {
+          "name": "plugify-module-golang-2.7.5-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-module-golang/releases/download/v2.7.5/plugify-module-golang-2.7.5-linux_64.tar.bz2",
+          "sha256": "4dac8f28f297aff13c3a703ddca0029ac40affd6ff869af84095d7a27f959d87",
+          "size": 899018
+        },
+        "windows": {
+          "name": "plugify-module-golang-2.7.5-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-module-golang/releases/download/v2.7.5/plugify-module-golang-2.7.5-win_64.tar.bz2",
+          "sha256": "6a54791a7e04adc3bc220b850aa2a533b8cc8257504245d41333578d1e9f687e",
+          "size": 159423
+        }
+      }
+    }
+  }
+}

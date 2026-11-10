@@ -1,0 +1,50 @@
+# Bot: check the latest component releases and open a PR with an updated build.lock.json.
+# Always merged by hand. A PR opened with GITHUB_TOKEN does not trigger build.yml, so the
+# BOT_TOKEN secret is used (fine-grained PAT or GitHub App with contents and pull-requests write).
+name: update-lock
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  repository_dispatch:
+    types: [component-released]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        build: [source2]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install pyyaml
+
+      - name: Resolve latest releases
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 tools/pfb.py --build ${{ matrix.build }} lock --summary pr
+
+      - name: PR fields
+        id: pr
+        run: |
+          echo "changed=$(cat pr/changed.txt)" >> "$GITHUB_OUTPUT"
+          echo "title=$(cat pr/title.txt)" >> "$GITHUB_OUTPUT"
+
+      - uses: peter-evans/create-pull-request@v7
+        if: steps.pr.outputs.changed == '1'
+        with:
+          token: ${{ secrets.BOT_TOKEN || github.token }}
+          branch: bot/update-lock-${{ matrix.build }}
+          add-paths: builds/${{ matrix.build }}/build.lock.json
+          commit-message: ${{ steps.pr.outputs.title }}
+          title: ${{ steps.pr.outputs.title }}
+          body-path: pr/body.md
+          labels: update-lock
+          delete-branch: true

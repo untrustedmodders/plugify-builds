@@ -1,0 +1,68 @@
+# Plugify Source 2 build. Written by hand; exact versions live in build.lock.json (written by the bot).
+id: plugify-source2
+title: Plugify Source 2
+games: [cs2]
+
+# Archive root is the server game/ folder; base is the micromamba root prefix of the host.
+layout:
+  base: csgo/addons/plugify
+  envs: envs
+
+platforms:
+  linux:   { conda: linux-64, host: linuxsteamrt64, archive: tar.gz }
+  windows: { conda: win-64,   host: win64,          archive: zip }
+
+# Host archives in releases. {host} is the host platform name (linuxsteamrt64 / win64).
+# micromamba used to build the environments comes from the Linux archive of host micromamba_from.
+micromamba_from: launcher
+hosts:
+  launcher:
+    repo: untrustedmodders/plugify-source2-launcher
+    asset: "plugify-source2-launcher-build-{host}-*.tar.bz2"
+  runtime:
+    repo: untrustedmodders/plugify-source2-launcher
+    asset: "plugify-source2-runtime-build-{host}-*.tar.bz2"
+    platforms: [linux]
+  metamod:
+    repo: untrustedmodders/plugify-metamod-loader
+    asset: "plugify-metamod-loader-build-{host}-*.tar.bz2"
+# Core submodule in the host repositories; the lock records its version.
+core:
+  repo: untrustedmodders/plugify
+  submodule: external/plugify
+
+# Build conda channel on GitHub Pages: {base}/{name}/ (stable) and {base}/{name}-dev/ (dev).
+# It holds the component packages from the lock and the meta-packages {id}-plugins and {id}-modules.
+channel:
+  base: https://untrustedmodders.github.io/plugify-builds
+  name: source2
+license: MIT
+
+# conda package name equals the repository name; "name" is a repository in org, "owner/name" is in another account.
+# Release asset: {name}-{version}-{conda platform with "_"}.tar.bz2, channel: https://{owner}.github.io/{name}/
+org: untrustedmodders
+plugins: [plugify-plugin-s2sdk, plugify-plugin-polyhook, plugify-plugin-configs,
+          plugify-plugin-translations, plugify-plugin-permissions, plugify-plugin-dyncall,
+          fr0nch/permissions-storage, fr0nch/permissions-connector-s2]
+# auto: modules of the languages of the standard plugins (`language` in their .pplugin), or an explicit list.
+modules: auto
+languages:            # manifest language to module package
+  cpp: plugify-module-cpp
+  golang: plugify-module-golang
+  javascript: plugify-module-v8
+  dotnet: plugify-module-dotnet
+  python3: plugify-module-python3
+  lua: plugify-module-lua
+  rust: plugify-module-rust
+
+# Version constraints, for example  plugify-plugin-s2sdk: "<4"  (comma separated: ">=3.3,<4").
+pins: {}
+
+smoke:
+  # Expected smoke failures (plug outside the game): manifest name to a regex of the error.
+  # s2sdk links against game libraries (libv8, libtier0, libsteam_api). Outside the game libv8.so is missing first,
+  # or libtier0.so when a V8 module is loaded (it brings its own libv8.so).
+  expect_failed:
+    s2sdk: "lib(v8|tier0|steam_api)\\.so: cannot open shared object file"
+  # Foreign package for upgrade-test: installed from its own channel before update --all, must stay.
+  foreign: plugify-module-lua
