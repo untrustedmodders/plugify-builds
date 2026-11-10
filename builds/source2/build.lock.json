@@ -220,44 +220,44 @@
     "permissions-storage": {
       "kind": "plugin",
       "repo": "fr0nch/permissions-storage",
-      "version": "0.1.1",
-      "tag": "v0.1.1",
-      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v0.1.1",
+      "version": "1.0.0",
+      "tag": "v1.0.0",
+      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v1.0.0",
       "channel": "https://fr0nch.github.io/permissions-storage/",
       "files": {
         "linux": {
-          "name": "permissions-storage-0.1.1-linux_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v0.1.1/permissions-storage-0.1.1-linux_64.tar.bz2",
-          "sha256": "7d09a1e53fcef49709fb549b5381ab7a075e9d014c15e82e4889967711af0dd2",
-          "size": 4807161
+          "name": "permissions-storage-1.0.0-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.0/permissions-storage-1.0.0-linux_64.tar.bz2",
+          "sha256": "bd1961d799d30a331cdfcc39bfd19d57abfb49b50f6231f8b15d63861479dcf6",
+          "size": 5067574
         },
         "windows": {
-          "name": "permissions-storage-0.1.1-win_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v0.1.1/permissions-storage-0.1.1-win_64.tar.bz2",
-          "sha256": "742041dd2ed28644c4c841746cd30ece0ac6af1a234d64209060b05250b3403d",
-          "size": 4698428
+          "name": "permissions-storage-1.0.0-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.0/permissions-storage-1.0.0-win_64.tar.bz2",
+          "sha256": "0d45fcc8c63ad026e7e70286674e2a0186dd0d7ddb911db057604816377bfff9",
+          "size": 4921557
         }
       }
     },
     "permissions-connector-s2": {
       "kind": "plugin",
       "repo": "fr0nch/permissions-connector-s2",
-      "version": "0.1.5",
-      "tag": "v0.1.5",
-      "release_url": "https://github.com/fr0nch/permissions-connector-s2/releases/tag/v0.1.5",
+      "version": "1.0.0",
+      "tag": "v1.0.0",
+      "release_url": "https://github.com/fr0nch/permissions-connector-s2/releases/tag/v1.0.0",
       "channel": "https://fr0nch.github.io/permissions-connector-s2/",
       "files": {
         "linux": {
-          "name": "permissions-connector-s2-0.1.5-linux_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v0.1.5/permissions-connector-s2-0.1.5-linux_64.tar.bz2",
-          "sha256": "faa6b76ab05c26a2f31c07aa3e189d7ef9ecf398ddea5a6562c9c8a59735c2a0",
-          "size": 1830439
+          "name": "permissions-connector-s2-1.0.0-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v1.0.0/permissions-connector-s2-1.0.0-linux_64.tar.bz2",
+          "sha256": "9127f732f05397c1976293e241c7ac3e902ea81a3fb927ecc0df2f78ba340cd6",
+          "size": 1832720
         },
         "windows": {
-          "name": "permissions-connector-s2-0.1.5-win_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v0.1.5/permissions-connector-s2-0.1.5-win_64.tar.bz2",
-          "sha256": "a5e9b1a78ef2990cf3883f24b9fba5435d6d16fbb5855163b257c60f44477dad",
-          "size": 1759936
+          "name": "permissions-connector-s2-1.0.0-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v1.0.0/permissions-connector-s2-1.0.0-win_64.tar.bz2",
+          "sha256": "944c346ea02c4fa8d2b030a421688c4d8341b95793ddb8f06e179d7ede7ea2d5",
+          "size": 1761306
         }
       }
     },
@@ -308,14 +308,6 @@
   },
   "files": [
     {
-      "package": "permissions-storage",
-      "source": "repo",
-      "path": "assets/storage.yml",
-      "dest": "configs/permissions/storage.yml",
-      "url": "https://raw.githubusercontent.com/fr0nch/permissions-storage/v0.1.1/assets/storage.yml",
-      "sha256": "885e5d0eb623ee6fcc9e15835177e31439f7da9fe1de206870aa473ae710111d"
-    },
-    {
       "package": "plugify-plugin-s2sdk",
       "source": "package",
       "path": "translations.jsonc",
@@ -324,8 +316,8 @@
     {
       "package": "permissions-connector-s2",
       "source": "package",
-      "path": "permissions-connector-s2.yaml",
-      "dest": "data/permissions-connector-s2.yaml"
+      "path": "permissions_connector_s2.translations.yaml",
+      "dest": "data/permissions/permissions_connector_s2.translations.yaml"
     }
   ]
 }
