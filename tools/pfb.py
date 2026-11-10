@@ -758,6 +758,10 @@ def cmd_smoke(b: Build, args):
         bad += not ok
         log(f"  {'ok  ' if ok else 'FAIL'} micromamba list -n {k}: {len(got or [])} packages")
     if bad:
+        log("plug errors:")
+        for line in re.sub(r"\x1b\[[0-9;]*m", "", out).splitlines():
+            if re.search(r"error|fail", line, re.I):
+                log(f"  {line.strip()}")
         die(f"smoke: {bad} problems")
     log("smoke: ok")
 
