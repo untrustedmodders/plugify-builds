@@ -92,7 +92,8 @@ jobs:
             git clone -q "$repo" "deps/$name" && git -C "deps/$name" checkout -q "$tag"
             deps+=("-DFETCHCONTENT_SOURCE_DIR_${name}=$PWD/deps/$name")
           done < <(sed -n 's/^set(PLUGIFY_\([A-Z0-9]*\)_TAG "\([0-9a-f]\{40\}\)".*/\1 \2/p' core/cmake/PlugifyBuildOptions.cmake)
-          cmake -S core -B core/build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_C_COMPILER=gcc-14 -DPLUGIFY_BUILD_TESTS=ON "${deps[@]}"
+          # Debug, as in the local test bench: Release adds fortify warnings that the core turns into errors (-Werror)
+          cmake -S core -B core/build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_C_COMPILER=gcc-14 -DPLUGIFY_BUILD_TESTS=ON "${deps[@]}"
           cmake --build core/build --target plug
           mkdir -p plug-bin && cp core/build/test/plug/plug plug-bin/
 
