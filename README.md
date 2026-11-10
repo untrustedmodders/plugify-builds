@@ -9,7 +9,7 @@ Current build: **Plugify Source 2** (`plugify-source2`, Counter-Strike 2).
 ```
 builds/source2/build.yaml        build definition: hosts, plugins, language to module map, extra files, channel, pins
 builds/source2/build.lock.json   exact versions, asset URLs and sha256 (written by the bot)
-builds/source2/data/             optional build translations, copied to addons/plugify/data/ of full archives
+builds/source2/data/             optional build translations (<folder>/<prefix>.translations.<ext>), copied to addons/plugify/data/
 tools/pfb.py                     pipeline
 .github/workflows/               build.yml, release.yml, update-lock.yml
 ```
@@ -17,6 +17,19 @@ tools/pfb.py                     pipeline
 Modules are selected automatically from the `language` field of the standard plugins (`modules: auto`).
 
 `files` in `build.yaml` adds plugin configs and translations to `configs/` and `data/` of the full archive: from the component repository at the locked tag (`source: repo`, sha256 in the lock) or from the conda package (`source: package`). host-only archives do not contain them and `mamba update` does not touch them. Gamedata and settings are rejected.
+
+## Plugin files
+
+A plugin keeps `<prefix>.<kind>.<ext>`, where `<kind>` is `settings`, `gamedata` or `translations` and the format (`jsonc`, `yaml`) is up to the plugin author. s2sdk uses its manifest name as prefix and folder (`s2sdk/s2sdk.translations.jsonc`); the permissions plugins share the `permissions/` folder (`permissions/permissions_connector_s2.translations.yaml`). Paths are relative to `addons/plugify/`:
+
+| Path | Holds | Written by |
+|---|---|---|
+| `envs/<env>/<prefix>.<kind>.<ext>` | defaults, overwritten on update | package |
+| `configs/<folder>/<prefix>.<kind>.<ext>` | admin edits: settings, gamedata fixes | admin |
+| `data/<folder>/<prefix>.<kind>.<ext>` | translations and persistent plugin state | plugin, build (translations only) |
+| `cache/<folder>/` | anything the plugin can recreate | plugin |
+
+A plugin reads each kind from the env, then `configs`, then `data`; later files override earlier ones (s2sdk replaces top-level keys as a whole, so a gamedata fix in `configs` carries the whole `"csgo"` section). The build adds only translations, into `data/<folder>/`, and rejects settings and gamedata of any format. s2sdk no longer reads its old root `configs/settings.jsonc`, `configs/gamedata.jsonc` and `data/translations.jsonc`; the build rejects them too. `verify.plugin_files` in `build.yaml` lists files a plugin package must ship next to its manifest.
 
 ## Outputs
 

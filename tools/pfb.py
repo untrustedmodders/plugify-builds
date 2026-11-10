@@ -344,7 +344,7 @@ def cmd_lock(b: Build, args):
         log("lock unchanged")
     else:
         b.lock_path.write_text(json.dumps(new, indent=2, ensure_ascii=False) + "\n")
-        log(f"wrote {b.lock_path.relative_to(ROOT)}: {len(changes)} version changes")
+        log(f"wrote {os.path.relpath(b.lock_path, ROOT)}: {len(changes)} version changes")
     if args.summary:
         write_summary(b, old, new, changes, Path(args.summary))
 
@@ -709,6 +709,11 @@ def cmd_verify(b: Build, args):
                 dep = plugs.get(c["name"])
                 if dep and satisfies(dep["version"], c.get("constraints")):
                     errors.append(f"{os_}: plugin {n} conflicts with {c['name']} {dep['version']}")
+        # config files a plugin package must ship in its env (catches a package built with an old layout)
+        for n, required in ((b.cfg.get("verify") or {}).get("plugin_files") or {}).items():
+            for f in required:
+                if not (envs["plugins"] / f).is_file():
+                    errors.append(f"{os_}: plugin {n}: {f} is missing in the plugins env")
         log(f"verify {os_}: {len(mods)} modules, {len(plugs)} plugins")
     if errors:
         for e in errors:
@@ -954,14 +959,33 @@ def stage_pack(b: Build, args, variant, host, os_, version, channel) -> Path:
     return stage
 
 
+PLUGIN_FILE = re.compile(r"(.+)\.(settings|gamedata|translations)\.[^./]+")
+
+
+def plugin_file_error(rel: str) -> str | None:
+    """Rule for a file under addons/plugify. Plugin files are <prefix>.<kind>.<ext> (jsonc, yaml, as the plugin
+    author decides): the package ships them in its env, configs/<folder>/ is the admin layer and data/<folder>/ holds
+    translations. A build only adds translations: gamedata and settings would override the package and hide new
+    signatures or settings of an updated plugin. s2sdk no longer reads its old root translations.jsonc."""
+    parts = rel.split("/")
+    name = parts[-1]
+    m = PLUGIN_FILE.fullmatch(name)
+    if m and m[2] != "translations" or not m and name.startswith(("gamedata", "settings")):
+        return "gamedata and settings are not allowed"
+    if name.startswith("translations."):
+        return "old layout, plugins do not read it; use data/<folder>/<prefix>.translations.<ext>"
+    if m and (len(parts) != 3 or parts[0] != "data"):
+        return f"must be data/<folder>/{name}"
+    return None
+
+
 def check_file_dest(dest: str):
-    """Extra files go to configs/ or data/ only. Gamedata and settings are rejected: those layers override the
-    package and would hide new signatures or settings of an updated plugin."""
+    """Extra files go to configs/ or data/ only, see plugin_file_error."""
     top, _, rest = dest.partition("/")
     if top not in ("configs", "data") or not rest or ".." in dest.split("/"):
         die(f"files: dest {dest!r} must be under configs/ or data/")
-    if Path(rest).name.startswith(("gamedata", "settings")):
-        die(f"files: gamedata and settings are not allowed: {dest}")
+    if err := plugin_file_error(dest):
+        die(f"files: {dest}: {err}")
 
 
 def stage_files(b: Build, args, os_: str, base: Path):
@@ -984,13 +1008,13 @@ def stage_files(b: Build, args, os_: str, base: Path):
 
 
 def build_data_files(b: Build) -> list[Path]:
-    """Files of builds/<build>/data/ go to addons/plugify/data/ of the full archive. Gamedata and settings are
-    rejected: the data/ layer overrides the package and would hide new signatures or settings of an updated plugin."""
+    """Files of builds/<build>/data/ go to addons/plugify/data/ of the full archive, see plugin_file_error."""
     src = b.dir / "data"
     files = sorted(f for f in src.rglob("*") if f.is_file()) if src.is_dir() else []
-    bad = [f.name for f in files if f.name.startswith(("gamedata", "settings"))]
+    bad = [f"{rel}: {err}" for rel in (f"data/{f.relative_to(src).as_posix()}" for f in files)
+           if (err := plugin_file_error(rel))]
     if bad:
-        die(f"gamedata and settings are not allowed in {src}: {bad}")
+        die(f"{src}: {bad}")
     return files
 
 

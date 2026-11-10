@@ -19,67 +19,67 @@
   "hosts": {
     "launcher": {
       "repo": "untrustedmodders/plugify-source2-launcher",
-      "version": "2.5.4",
-      "tag": "v2.5.4",
-      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.4",
+      "version": "2.5.6",
+      "tag": "v2.5.6",
+      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.6",
       "core": {
         "version": "3.1.0",
-        "commit": "6579104a01a49d26292381763d26c6c6ed790be8"
+        "commit": "ea1427c4d5775beaa401ba3de5364e01ce93a693"
       },
       "files": {
         "linux": {
-          "name": "plugify-source2-launcher-build-linuxsteamrt64-6c6c7f8.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.4/plugify-source2-launcher-build-linuxsteamrt64-6c6c7f8.tar.bz2",
-          "sha256": "346a4856a277103ed0f2aadb999254b30273cde12ccd78521632183f80e2502e",
-          "size": 15518936
+          "name": "plugify-source2-launcher-build-linuxsteamrt64-3c53153.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.6/plugify-source2-launcher-build-linuxsteamrt64-3c53153.tar.bz2",
+          "sha256": "e9cf9ada705fa3dc27362d3e595da1739e7e78d672c13d2782177fe7a482c85c",
+          "size": 15552972
         },
         "windows": {
-          "name": "plugify-source2-launcher-build-win64-6c6c7f8.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.4/plugify-source2-launcher-build-win64-6c6c7f8.tar.bz2",
-          "sha256": "e5718810084d86d0ad6b7c38f0378513c45600a1c116df23c8552fe8721207a0",
-          "size": 6252278
+          "name": "plugify-source2-launcher-build-win64-3c53153.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.6/plugify-source2-launcher-build-win64-3c53153.tar.bz2",
+          "sha256": "81915b361beef2adb3d5ad19baf0ba5ff8b2a0bcc0164a915f00f159d4a2df5b",
+          "size": 6253561
         }
       }
     },
     "runtime": {
       "repo": "untrustedmodders/plugify-source2-launcher",
-      "version": "2.5.4",
-      "tag": "v2.5.4",
-      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.4",
+      "version": "2.5.6",
+      "tag": "v2.5.6",
+      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.6",
       "core": {
         "version": "3.1.0",
-        "commit": "6579104a01a49d26292381763d26c6c6ed790be8"
+        "commit": "ea1427c4d5775beaa401ba3de5364e01ce93a693"
       },
       "files": {
         "linux": {
-          "name": "plugify-source2-runtime-build-linuxsteamrt64-6c6c7f8.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.4/plugify-source2-runtime-build-linuxsteamrt64-6c6c7f8.tar.bz2",
-          "sha256": "fda744d9ad0d33db681df8d9f3a68b2a31490b168bf2c1faf997f101585e21eb",
-          "size": 15558614
+          "name": "plugify-source2-runtime-build-linuxsteamrt64-3c53153.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.6/plugify-source2-runtime-build-linuxsteamrt64-3c53153.tar.bz2",
+          "sha256": "8334b4de72effd3ed099b80fffaac1f193b987b6a0eec9a9517bc9e6007a0953",
+          "size": 15551848
         }
       }
     },
     "metamod": {
       "repo": "untrustedmodders/plugify-metamod-loader",
-      "version": "2.1.4",
-      "tag": "v2.1.4",
-      "release_url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/tag/v2.1.4",
+      "version": "2.1.5",
+      "tag": "v2.1.5",
+      "release_url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/tag/v2.1.5",
       "core": {
         "version": "3.1.0",
-        "commit": "978ec86689b7d52e5a9bc56b52d573c489d169a3"
+        "commit": "ea1427c4d5775beaa401ba3de5364e01ce93a693"
       },
       "files": {
         "linux": {
-          "name": "plugify-metamod-loader-build-linuxsteamrt64-2d1e135.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/download/v2.1.4/plugify-metamod-loader-build-linuxsteamrt64-2d1e135.tar.bz2",
-          "sha256": "c9d55dd46604a2c76aae871b0f29d8adf595f345a0828e813b552bf31efe3591",
-          "size": 11233057
+          "name": "plugify-metamod-loader-build-linuxsteamrt64-ee367a7.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/download/v2.1.5/plugify-metamod-loader-build-linuxsteamrt64-ee367a7.tar.bz2",
+          "sha256": "5a353695094d640af18409b97fcaf8b4e8fbe21d10a38c05dcbefd57a251e269",
+          "size": 11308205
         },
         "windows": {
-          "name": "plugify-metamod-loader-build-win64-2d1e135.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/download/v2.1.4/plugify-metamod-loader-build-win64-2d1e135.tar.bz2",
-          "sha256": "f6e7dc1f1533b18c0f56581f1d616320605f52da54cc009011230d0da17a5d90",
-          "size": 5305599
+          "name": "plugify-metamod-loader-build-win64-ee367a7.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-metamod-loader/releases/download/v2.1.5/plugify-metamod-loader-build-win64-ee367a7.tar.bz2",
+          "sha256": "7fd49be401dad2d5cf6628dab09475432f379686b7e2259716c6b80a0725aac1",
+          "size": 5277233
         }
       }
     }
@@ -88,22 +88,22 @@
     "plugify-plugin-s2sdk": {
       "kind": "plugin",
       "repo": "untrustedmodders/plugify-plugin-s2sdk",
-      "version": "3.3.1",
-      "tag": "v3.3.1",
-      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.3.1",
+      "version": "3.4.0",
+      "tag": "v3.4.0",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.4.0",
       "channel": "https://untrustedmodders.github.io/plugify-plugin-s2sdk/",
       "files": {
         "linux": {
-          "name": "plugify-plugin-s2sdk-3.3.1-linux_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.3.1/plugify-plugin-s2sdk-3.3.1-linux_64.tar.bz2",
-          "sha256": "65aa115509a005538c11b90c5b6fef78eb94c53a0add4f279c8488d958696402",
-          "size": 6992037
+          "name": "plugify-plugin-s2sdk-3.4.0-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.0/plugify-plugin-s2sdk-3.4.0-linux_64.tar.bz2",
+          "sha256": "b2d9666a14dbaaf4db915a0c874fee48ec3fe5183085cd181323adff300ffe75",
+          "size": 7246465
         },
         "windows": {
-          "name": "plugify-plugin-s2sdk-3.3.1-win_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.3.1/plugify-plugin-s2sdk-3.3.1-win_64.tar.bz2",
-          "sha256": "cd923fe385e7c26151fb69fbc7f0c881cc43106d04bc3094f5252fac25ca88cf",
-          "size": 1499861
+          "name": "plugify-plugin-s2sdk-3.4.0-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.0/plugify-plugin-s2sdk-3.4.0-win_64.tar.bz2",
+          "sha256": "fd17fa446aa101c6672cb9de2b3c5073e40ab71c08e736c95b2065c58a9c51b0",
+          "size": 1583507
         }
       }
     },
@@ -310,8 +310,8 @@
     {
       "package": "plugify-plugin-s2sdk",
       "source": "package",
-      "path": "translations.jsonc",
-      "dest": "data/translations.jsonc"
+      "path": "s2sdk.translations.jsonc",
+      "dest": "data/s2sdk/s2sdk.translations.jsonc"
     },
     {
       "package": "permissions-connector-s2",
