@@ -54,12 +54,16 @@ jobs:
             echo "tag=$BUILD_ID-dev" >> "$GITHUB_OUTPUT"
           fi
 
+      # downloads only: extracted package folders restored from a cache produced incomplete environments
       - name: Cache downloads
         uses: actions/cache@v4
         with:
-          path: .cache
-          key: pfb-${{ hashFiles('builds/*/build.lock.json') }}
-          restore-keys: pfb-
+          path: |
+            .cache/hosts
+            .cache/tools
+            .cache/pkgs/*.tar.bz2
+          key: pfb-v2-${{ hashFiles('builds/*/build.lock.json') }}
+          restore-keys: pfb-v2-
 
       - name: Previous stable builds
         id: prev
@@ -188,9 +192,12 @@ jobs:
         with: { name: dist, path: dist }
       - uses: actions/cache/restore@v4
         with:
-          path: .cache
-          key: pfb-${{ hashFiles('builds/*/build.lock.json') }}
-          restore-keys: pfb-
+          path: |
+            .cache/hosts
+            .cache/tools
+            .cache/pkgs/*.tar.bz2
+          key: pfb-v2-${{ hashFiles('builds/*/build.lock.json') }}
+          restore-keys: pfb-v2-
 
       - name: Release notes
         run: |

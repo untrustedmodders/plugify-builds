@@ -673,6 +673,8 @@ def cmd_verify(b: Build, args):
                     if f in seen:
                         errors.append(f"{os_}/{kind}: file {f} is in both {seen[f]} and {n}")
                     seen[f] = n
+                    if not (p / f).exists():
+                        errors.append(f"{os_}/{kind}: {n}: file {f} is listed in conda-meta but missing")
         # manifests: every plugin language has a module (checks the auto selection), dependencies and constraints hold
         mods, plugs = env_manifests(envs)
         langs = {m.get("language") for m in mods.values()}
