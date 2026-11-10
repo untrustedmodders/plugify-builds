@@ -127,7 +127,7 @@ jobs:
           path: dist/
           retention-days: 7
       # Channel for the Windows check (current version only, no history).
-      - run: $PFB channel --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }} --work work-win
+      - run: $PFB --work work-win channel --version "${{ steps.ver.outputs.version }}" --channel ${{ steps.ver.outputs.channel }}
       - uses: actions/upload-artifact@v4
         with:
           name: channel
