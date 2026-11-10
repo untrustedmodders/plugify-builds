@@ -911,7 +911,9 @@ def stage_pack(b: Build, args, variant, host, os_, version, channel) -> Path:
         envs_root = base / b.cfg["layout"]["envs"]
         for k, p in pack_envs(b, args, os_, version, channel).items():
             shutil.copytree(p, envs_root / k, symlinks=True)
-    for d in ("configs", "data", "logs"):
+    # pkgs/ stays empty (no cache in the pack), but must exist: micromamba.exe 2.3.2 fails with
+    # "Specified pkgs_dir does not exist" on install/update, while the Linux build creates it on its own
+    for d in ("configs", "data", "logs", "pkgs"):
         (base / d).mkdir(parents=True, exist_ok=True)
     if variant == "full":  # build translations: full archive only, so host-only never overwrites server edits
         for f in build_data_files(b):
