@@ -704,9 +704,12 @@ def plug_states(b: Build, args, base: Path, names: list[str]) -> tuple[dict, str
     conf = base / "smoke.pconfig"
     conf.write_text(json.dumps({"paths": {"baseDir": str(base), "extensionsDir": "envs"},
                                 "logging": {"severity": "error"}}))
-    r = subprocess.run([str(Path(args.plug).resolve()), "-c", str(conf), "-i", "-p"],
+    plug = Path(args.plug).resolve()
+    # libplugify.so next to plug (CI caches both), in case its RUNPATH points to a build tree that is gone
+    ld = os.pathsep.join(filter(None, [str(plug.parent), os.environ.get("LD_LIBRARY_PATH")]))
+    r = subprocess.run([str(plug), "-c", str(conf), "-i", "-p"],
                        input="init\nload\nmodules\nplugins\nexit\n", capture_output=True, text=True,
-                       cwd=base, timeout=args.timeout, env=dict(os.environ, LC_ALL="C"))
+                       cwd=base, timeout=args.timeout, env=dict(os.environ, LC_ALL="C", LD_LIBRARY_PATH=ld))
     out = r.stdout + r.stderr
     (base / "plug.log").write_text(out)
     return parse_states(out, names), out, r.returncode

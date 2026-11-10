@@ -76,7 +76,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: plug-bin
-          key: plug-${{ steps.core.outputs.commit }}
+          key: plug-v2-${{ steps.core.outputs.commit }}
 
       - name: Build plug (core test app)
         if: steps.plug-cache.outputs.cache-hit != 'true'
@@ -95,7 +95,7 @@ jobs:
           # Debug, as in the local test bench: Release adds fortify warnings that the core turns into errors (-Werror)
           cmake -S core -B core/build -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=g++-14 -DCMAKE_C_COMPILER=gcc-14 -DPLUGIFY_BUILD_TESTS=ON "${deps[@]}"
           cmake --build core/build --target plug
-          mkdir -p plug-bin && cp core/build/test/plug/plug plug-bin/
+          mkdir -p plug-bin && cp core/build/test/plug/plug core/build/libplugify.so* plug-bin/
 
       - name: Fetch (sha256)
         run: $PFB fetch
