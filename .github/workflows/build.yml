@@ -159,21 +159,13 @@ jobs:
           $uri = ([System.Uri]$chan).AbsoluteUri
           function mm { & $mm @args; if ($LASTEXITCODE) { throw "micromamba $args exited with $LASTEXITCODE" } }
           mm --version
-          # which package cache does update need? try variants, the real check follows below
-          $rc = Join-Path $base '.condarc'; $orig = Get-Content $rc -Raw
-          & $mm update -y -r $base -n plugins --override-channels -c $uri --all; "online: $LASTEXITCODE"
-          Set-Content $rc ($orig + "pkgs_dirs:`n  - `${MAMBA_ROOT_PREFIX}/pkgs`n")
-          & $mm update -y --offline -r $base -n plugins --override-channels -c $uri --all; "rootvar: $LASTEXITCODE"
-          & $mm config list -r $base pkgs_dirs
-          Set-Content $rc ($orig + "pkgs_dirs:`n  - pkgs`n")
-          & $mm update -y --offline -r $base -n plugins --override-channels -c $uri --all; "relative: $LASTEXITCODE"
-          Set-Content $rc $orig -NoNewline
           mm list -r $base -n modules
           mm list -r $base -n plugins
-          # update --all from the build channel, remove a standard package (drops the meta-package too), reinstall
-          mm update -y --offline -r $base -n plugins --override-channels -c $uri --all
-          mm remove -y --offline -r $base -n plugins plugify-plugin-dyncall
-          mm install -y --offline -r $base -n plugins --override-channels -c $uri "$env:BUILD_ID-plugins"
+          # update --all from the build channel, remove a standard package (drops the meta-package too), reinstall.
+          # No --offline: micromamba.exe 2.3.2 then fails with "Specified pkgs_dir does not exist" (user cache dirs).
+          mm update -y -r $base -n plugins --override-channels -c $uri --all
+          mm remove -y -r $base -n plugins plugify-plugin-dyncall
+          mm install -y -r $base -n plugins --override-channels -c $uri "$env:BUILD_ID-plugins"
           mm list -r $base -n plugins
 
   publish:
