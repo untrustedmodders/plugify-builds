@@ -170,8 +170,12 @@ jobs:
 
   publish:
     needs: [build, windows]
-    # push to main and manual runs publish dev; a call from release.yml publishes stable
-    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || inputs.tag != '')
+    # push to main and manual runs publish dev; a call from release.yml publishes stable.
+    # A release commit is published only as stable: Pages deploys by commit sha, and a second deployment of the
+    # same sha reports success but keeps the first site.
+    if: >-
+      github.event_name != 'pull_request' && (inputs.tag != '' || (github.ref == 'refs/heads/main'
+      && !startsWith(github.event.head_commit.message, 'chore(main): release')))
     runs-on: ubuntu-24.04
     concurrency: { group: publish-pages, cancel-in-progress: false }
     permissions:

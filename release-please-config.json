@@ -7,7 +7,6 @@
       "release-type": "simple",
       "component": "plugify-source2",
       "package-name": "plugify-source2",
-      "release-as": "1.0.0",
       "changelog-path": "CHANGELOG.md"
     }
   }
