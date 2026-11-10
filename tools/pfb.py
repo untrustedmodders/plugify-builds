@@ -890,7 +890,10 @@ def build_json(b: Build, host: str, os_: str, version: str, channel: str) -> str
 
 def condarc(b: Build, channel: str) -> str:
     chans = [b.channel_url(c) + "/" for c in (["dev", "stable"] if channel == "dev" else ["stable"])]
-    chans += [b.component_channel(n) for n in b.lock["packages"]]
+    # components of the build, then every language module, so `mamba install -n modules <module>` works without -c
+    for n in [*b.lock["packages"], *(b.cfg.get("languages") or {}).values()]:
+        if b.component_channel(n) not in chans:
+            chans.append(b.component_channel(n))
     return ("# Plugify channels (build " + b.id + "): the build channel first, then the component channels.\n"
             "# strict: a package present in the build channel is taken from it (the version tested in the build).\n"
             "# For a newer version use: mamba install -n <env> -c \"<component channel>\" <package>\n"
