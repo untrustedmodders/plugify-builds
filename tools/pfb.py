@@ -965,17 +965,22 @@ PLUGIN_FILE = re.compile(r"(.+)\.(settings|gamedata|translations)\.[^./]+")
 def plugin_file_error(rel: str) -> str | None:
     """Rule for a file under addons/plugify. Plugin files are <prefix>.<kind>.<ext> (jsonc, yaml, as the plugin
     author decides): the package ships them in its env, configs/<folder>/ is the admin layer and data/<folder>/ holds
-    translations. A build only adds translations: gamedata and settings would override the package and hide new
-    signatures or settings of an updated plugin. s2sdk no longer reads its old root translations.jsonc."""
+    translations. A build adds translations to data/<folder>/ and default settings to configs/<folder>/, so the admin
+    has them to edit; plugins merge settings by key, new keys of an updated plugin still come from the env. Gamedata
+    is rejected: a copy would hide new signatures of an updated plugin. s2sdk no longer reads its old root
+    translations.jsonc."""
     parts = rel.split("/")
     name = parts[-1]
     m = PLUGIN_FILE.fullmatch(name)
-    if m and m[2] != "translations" or not m and name.startswith(("gamedata", "settings")):
-        return "gamedata and settings are not allowed"
+    if m and m[2] == "gamedata" or not m and name.startswith("gamedata"):
+        return "gamedata is not allowed"
+    if not m and name.startswith("settings"):
+        return "old layout, plugins do not read it; use configs/<folder>/<prefix>.settings.<ext>"
     if name.startswith("translations."):
         return "old layout, plugins do not read it; use data/<folder>/<prefix>.translations.<ext>"
-    if m and (len(parts) != 3 or parts[0] != "data"):
-        return f"must be data/<folder>/{name}"
+    top = "configs" if m and m[2] == "settings" else "data"
+    if m and (len(parts) != 3 or parts[0] != top):
+        return f"must be {top}/<folder>/{name}"
     return None
 
 
@@ -989,7 +994,7 @@ def check_file_dest(dest: str):
 
 
 def stage_files(b: Build, args, os_: str, base: Path):
-    """Copy the lock `files` (plugin configs, translations) into the staged addons/plugify."""
+    """Copy the lock `files` (plugin settings, translations) into the staged addons/plugify."""
     lock = b.lock
     for f in lock.get("files", []):
         dst = base / f["dest"]

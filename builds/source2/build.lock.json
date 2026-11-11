@@ -318,6 +318,18 @@
       "source": "package",
       "path": "permissions_connector_s2.translations.yaml",
       "dest": "data/permissions/permissions_connector_s2.translations.yaml"
+    },
+    {
+      "package": "permissions-storage",
+      "source": "package",
+      "path": "permissions_storage.settings.yaml",
+      "dest": "configs/permissions/permissions_storage.settings.yaml"
+    },
+    {
+      "package": "permissions-connector-s2",
+      "source": "package",
+      "path": "permissions_connector_s2.settings.yaml",
+      "dest": "configs/permissions/permissions_connector_s2.settings.yaml"
     }
   ]
 }
