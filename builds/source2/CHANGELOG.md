@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.1](https://github.com/untrustedmodders/plugify-builds/compare/plugify-source2-v1.1.0...plugify-source2-v1.1.1) (2026-11-11)
+
+
+### Bug Fixes
+
+* **source2:** bump 2 components ([3908264](https://github.com/untrustedmodders/plugify-builds/commit/390826443138645646cf22e9456bd66e36bd52f2))
+
 ## [1.1.0](https://github.com/untrustedmodders/plugify-builds/compare/plugify-source2-v1.0.0...plugify-source2-v1.1.0) (2026-11-11)
 
 
