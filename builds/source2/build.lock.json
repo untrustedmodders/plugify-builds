@@ -19,43 +19,43 @@
   "hosts": {
     "launcher": {
       "repo": "untrustedmodders/plugify-source2-launcher",
-      "version": "2.5.6",
-      "tag": "v2.5.6",
-      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.6",
+      "version": "2.5.8",
+      "tag": "v2.5.8",
+      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.8",
       "core": {
         "version": "3.1.0",
         "commit": "ea1427c4d5775beaa401ba3de5364e01ce93a693"
       },
       "files": {
         "linux": {
-          "name": "plugify-source2-launcher-build-linuxsteamrt64-3c53153.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.6/plugify-source2-launcher-build-linuxsteamrt64-3c53153.tar.bz2",
-          "sha256": "e9cf9ada705fa3dc27362d3e595da1739e7e78d672c13d2782177fe7a482c85c",
-          "size": 15552972
+          "name": "plugify-source2-launcher-build-linuxsteamrt64-058085e.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.8/plugify-source2-launcher-build-linuxsteamrt64-058085e.tar.bz2",
+          "sha256": "878b51e2140c7bdc708e59642dddcfc70403fe1b88178859b31a9361b3b0c2fd",
+          "size": 15555026
         },
         "windows": {
-          "name": "plugify-source2-launcher-build-win64-3c53153.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.6/plugify-source2-launcher-build-win64-3c53153.tar.bz2",
-          "sha256": "81915b361beef2adb3d5ad19baf0ba5ff8b2a0bcc0164a915f00f159d4a2df5b",
-          "size": 6253561
+          "name": "plugify-source2-launcher-build-win64-058085e.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.8/plugify-source2-launcher-build-win64-058085e.tar.bz2",
+          "sha256": "e309cc8662aacaf63db42987f78d0e01ab6f7948b23c481dcab0f2dd5f745ca2",
+          "size": 6254607
         }
       }
     },
     "runtime": {
       "repo": "untrustedmodders/plugify-source2-launcher",
-      "version": "2.5.6",
-      "tag": "v2.5.6",
-      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.6",
+      "version": "2.5.8",
+      "tag": "v2.5.8",
+      "release_url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/tag/v2.5.8",
       "core": {
         "version": "3.1.0",
         "commit": "ea1427c4d5775beaa401ba3de5364e01ce93a693"
       },
       "files": {
         "linux": {
-          "name": "plugify-source2-runtime-build-linuxsteamrt64-3c53153.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.6/plugify-source2-runtime-build-linuxsteamrt64-3c53153.tar.bz2",
-          "sha256": "8334b4de72effd3ed099b80fffaac1f193b987b6a0eec9a9517bc9e6007a0953",
-          "size": 15551848
+          "name": "plugify-source2-runtime-build-linuxsteamrt64-058085e.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-source2-launcher/releases/download/v2.5.8/plugify-source2-runtime-build-linuxsteamrt64-058085e.tar.bz2",
+          "sha256": "a8647f4b1c9744e08f36c70034505f5b9ad55433b8809d52ed8e5eb72a1d20d2",
+          "size": 15555700
         }
       }
     },
@@ -88,22 +88,22 @@
     "plugify-plugin-s2sdk": {
       "kind": "plugin",
       "repo": "untrustedmodders/plugify-plugin-s2sdk",
-      "version": "3.4.1",
-      "tag": "v3.4.1",
-      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.4.1",
+      "version": "3.4.3",
+      "tag": "v3.4.3",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.4.3",
       "channel": "https://untrustedmodders.github.io/plugify-plugin-s2sdk/",
       "files": {
         "linux": {
-          "name": "plugify-plugin-s2sdk-3.4.1-linux_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.1/plugify-plugin-s2sdk-3.4.1-linux_64.tar.bz2",
-          "sha256": "468e4f29033bc0cf420c5623dc7ea58e900dcde5283fe0aa138b8c3aa13d8dca",
-          "size": 7247614
+          "name": "plugify-plugin-s2sdk-3.4.3-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.3/plugify-plugin-s2sdk-3.4.3-linux_64.tar.bz2",
+          "sha256": "986e5e441866f5700ceca32119e23f8eccb57a0de9e033a911249387714199a7",
+          "size": 7243402
         },
         "windows": {
-          "name": "plugify-plugin-s2sdk-3.4.1-win_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.1/plugify-plugin-s2sdk-3.4.1-win_64.tar.bz2",
-          "sha256": "b17a2929791dbd24254661590cd39ccdc0fd285e3068f2a579c733b13461dd8b",
-          "size": 1582381
+          "name": "plugify-plugin-s2sdk-3.4.3-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.3/plugify-plugin-s2sdk-3.4.3-win_64.tar.bz2",
+          "sha256": "de33e1c97e057011450aa2e48790754b8a02df272b4b42b58def39e35332f6a2",
+          "size": 1582963
         }
       }
     },
@@ -220,22 +220,22 @@
     "permissions-storage": {
       "kind": "plugin",
       "repo": "fr0nch/permissions-storage",
-      "version": "1.0.1",
-      "tag": "v1.0.1",
-      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v1.0.1",
+      "version": "1.0.2",
+      "tag": "v1.0.2",
+      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v1.0.2",
       "channel": "https://fr0nch.github.io/permissions-storage/",
       "files": {
         "linux": {
-          "name": "permissions-storage-1.0.1-linux_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.1/permissions-storage-1.0.1-linux_64.tar.bz2",
-          "sha256": "9d0320c130469db25982436c9c9ac1890c9f44c62c936203ce3d1bc3b240982c",
-          "size": 5069959
+          "name": "permissions-storage-1.0.2-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.2/permissions-storage-1.0.2-linux_64.tar.bz2",
+          "sha256": "2521c110ce0112590e4d86c55e5273932d0a4a3a2db25b0b7c9818fd27104155",
+          "size": 5071661
         },
         "windows": {
-          "name": "permissions-storage-1.0.1-win_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.1/permissions-storage-1.0.1-win_64.tar.bz2",
-          "sha256": "aad3024bc30659fd9b69d18e83086a4386b24caedd667b5d169dc2b740071993",
-          "size": 4924988
+          "name": "permissions-storage-1.0.2-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.2/permissions-storage-1.0.2-win_64.tar.bz2",
+          "sha256": "204f5be42e671dee4121fff7c97d59146f740afb7b504a65d89b7680d78d9e83",
+          "size": 4925091
         }
       }
     },
