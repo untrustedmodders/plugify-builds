@@ -88,22 +88,22 @@
     "plugify-plugin-s2sdk": {
       "kind": "plugin",
       "repo": "untrustedmodders/plugify-plugin-s2sdk",
-      "version": "3.4.3",
-      "tag": "v3.4.3",
-      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.4.3",
+      "version": "3.5.1",
+      "tag": "v3.5.1",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.5.1",
       "channel": "https://untrustedmodders.github.io/plugify-plugin-s2sdk/",
       "files": {
         "linux": {
-          "name": "plugify-plugin-s2sdk-3.4.3-linux_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.3/plugify-plugin-s2sdk-3.4.3-linux_64.tar.bz2",
-          "sha256": "986e5e441866f5700ceca32119e23f8eccb57a0de9e033a911249387714199a7",
-          "size": 7243402
+          "name": "plugify-plugin-s2sdk-3.5.1-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.5.1/plugify-plugin-s2sdk-3.5.1-linux_64.tar.bz2",
+          "sha256": "f97e2d7e41df5790a832d8a93a4b2c3b3d97fea91128331fb9e0f92460038f4b",
+          "size": 7596235
         },
         "windows": {
-          "name": "plugify-plugin-s2sdk-3.4.3-win_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.4.3/plugify-plugin-s2sdk-3.4.3-win_64.tar.bz2",
-          "sha256": "de33e1c97e057011450aa2e48790754b8a02df272b4b42b58def39e35332f6a2",
-          "size": 1582963
+          "name": "plugify-plugin-s2sdk-3.5.1-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.5.1/plugify-plugin-s2sdk-3.5.1-win_64.tar.bz2",
+          "sha256": "f117ac60c159462a1e6833468b5cc546a86d887f36f51c1885241a338d14ee68",
+          "size": 1595663
         }
       }
     },
