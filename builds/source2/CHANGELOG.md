@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.2.0](https://github.com/untrustedmodders/plugify-builds/compare/plugify-source2-v1.1.1...plugify-source2-v1.2.0) (2026-11-26)
+
+
+### Features
+
+* ship default permissions settings in configs ([98bc72b](https://github.com/untrustedmodders/plugify-builds/commit/98bc72b5db336122a0b764693c52ca7002001ff1))
+* **source2:** bump plugify-plugin-s2sdk 3.4.3 -&gt; 3.5.1 ([01fd4cc](https://github.com/untrustedmodders/plugify-builds/commit/01fd4cc5e0254339320b3019dc06f4bec65d8bfb))
+
+
+### Bug Fixes
+
+* **source2:** bump 3 components ([e65131b](https://github.com/untrustedmodders/plugify-builds/commit/e65131bcb8498503767caee1d05fb083a56ca642))
+
 ## [1.1.1](https://github.com/untrustedmodders/plugify-builds/compare/plugify-source2-v1.1.0...plugify-source2-v1.1.1) (2026-11-11)
 
 
