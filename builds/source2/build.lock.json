@@ -88,22 +88,22 @@
     "plugify-plugin-s2sdk": {
       "kind": "plugin",
       "repo": "untrustedmodders/plugify-plugin-s2sdk",
-      "version": "3.5.1",
-      "tag": "v3.5.1",
-      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.5.1",
+      "version": "3.5.2",
+      "tag": "v3.5.2",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/tag/v3.5.2",
       "channel": "https://untrustedmodders.github.io/plugify-plugin-s2sdk/",
       "files": {
         "linux": {
-          "name": "plugify-plugin-s2sdk-3.5.1-linux_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.5.1/plugify-plugin-s2sdk-3.5.1-linux_64.tar.bz2",
-          "sha256": "f97e2d7e41df5790a832d8a93a4b2c3b3d97fea91128331fb9e0f92460038f4b",
-          "size": 7596235
+          "name": "plugify-plugin-s2sdk-3.5.2-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.5.2/plugify-plugin-s2sdk-3.5.2-linux_64.tar.bz2",
+          "sha256": "29ecbb895d7534069dbe8f79703ce96f84dae7e8dad31f002ec6c4fa2a10a074",
+          "size": 7601162
         },
         "windows": {
-          "name": "plugify-plugin-s2sdk-3.5.1-win_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.5.1/plugify-plugin-s2sdk-3.5.1-win_64.tar.bz2",
-          "sha256": "f117ac60c159462a1e6833468b5cc546a86d887f36f51c1885241a338d14ee68",
-          "size": 1595663
+          "name": "plugify-plugin-s2sdk-3.5.2-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-s2sdk/releases/download/v3.5.2/plugify-plugin-s2sdk-3.5.2-win_64.tar.bz2",
+          "sha256": "567bb7d21676875c31718a709754d6fd9245a102fe94bbea9230bfde792d0f8c",
+          "size": 1596180
         }
       }
     },
@@ -154,22 +154,22 @@
     "plugify-plugin-translations": {
       "kind": "plugin",
       "repo": "untrustedmodders/plugify-plugin-translations",
-      "version": "1.0.3",
-      "tag": "v1.0.3",
-      "release_url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/tag/v1.0.3",
+      "version": "1.1.0",
+      "tag": "v1.1.0",
+      "release_url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/tag/v1.1.0",
       "channel": "https://untrustedmodders.github.io/plugify-plugin-translations/",
       "files": {
         "linux": {
-          "name": "plugify-plugin-translations-1.0.3-linux_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/download/v1.0.3/plugify-plugin-translations-1.0.3-linux_64.tar.bz2",
-          "sha256": "d6000bc43c2531ebd047f3c6a3bc179948017f6cd6022788327892388c977b3f",
-          "size": 1257124
+          "name": "plugify-plugin-translations-1.1.0-linux_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/download/v1.1.0/plugify-plugin-translations-1.1.0-linux_64.tar.bz2",
+          "sha256": "08b6a0dce291580d3e4e405377c7068465c965b2810f6441e47a30ed91e72651",
+          "size": 1261888
         },
         "windows": {
-          "name": "plugify-plugin-translations-1.0.3-win_64.tar.bz2",
-          "url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/download/v1.0.3/plugify-plugin-translations-1.0.3-win_64.tar.bz2",
-          "sha256": "e314f231b381178b1cbaa58093b07f101ef6310491c84f91042325f7386f18a7",
-          "size": 92718
+          "name": "plugify-plugin-translations-1.1.0-win_64.tar.bz2",
+          "url": "https://github.com/untrustedmodders/plugify-plugin-translations/releases/download/v1.1.0/plugify-plugin-translations-1.1.0-win_64.tar.bz2",
+          "sha256": "469844ebaa3d6c47d18a6c9d90cf0182032d67af939862f0892c3484165c2f24",
+          "size": 92544
         }
       }
     },
@@ -220,44 +220,44 @@
     "permissions-storage": {
       "kind": "plugin",
       "repo": "fr0nch/permissions-storage",
-      "version": "1.0.2",
-      "tag": "v1.0.2",
-      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v1.0.2",
+      "version": "1.0.3",
+      "tag": "v1.0.3",
+      "release_url": "https://github.com/fr0nch/permissions-storage/releases/tag/v1.0.3",
       "channel": "https://fr0nch.github.io/permissions-storage/",
       "files": {
         "linux": {
-          "name": "permissions-storage-1.0.2-linux_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.2/permissions-storage-1.0.2-linux_64.tar.bz2",
-          "sha256": "2521c110ce0112590e4d86c55e5273932d0a4a3a2db25b0b7c9818fd27104155",
-          "size": 5071661
+          "name": "permissions-storage-1.0.3-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.3/permissions-storage-1.0.3-linux_64.tar.bz2",
+          "sha256": "b4792b9d7b3bd61aa772892985150885534b34f41a0411dd2a936e6f0619549f",
+          "size": 5069658
         },
         "windows": {
-          "name": "permissions-storage-1.0.2-win_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.2/permissions-storage-1.0.2-win_64.tar.bz2",
-          "sha256": "204f5be42e671dee4121fff7c97d59146f740afb7b504a65d89b7680d78d9e83",
-          "size": 4925091
+          "name": "permissions-storage-1.0.3-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-storage/releases/download/v1.0.3/permissions-storage-1.0.3-win_64.tar.bz2",
+          "sha256": "31c7d78f69f4c94892514cf8fa46a25abacfbd652d2bd6bff5792bd4f5d0d18e",
+          "size": 4926366
         }
       }
     },
     "permissions-connector-s2": {
       "kind": "plugin",
       "repo": "fr0nch/permissions-connector-s2",
-      "version": "1.0.0",
-      "tag": "v1.0.0",
-      "release_url": "https://github.com/fr0nch/permissions-connector-s2/releases/tag/v1.0.0",
+      "version": "1.0.1",
+      "tag": "v1.0.1",
+      "release_url": "https://github.com/fr0nch/permissions-connector-s2/releases/tag/v1.0.1",
       "channel": "https://fr0nch.github.io/permissions-connector-s2/",
       "files": {
         "linux": {
-          "name": "permissions-connector-s2-1.0.0-linux_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v1.0.0/permissions-connector-s2-1.0.0-linux_64.tar.bz2",
-          "sha256": "9127f732f05397c1976293e241c7ac3e902ea81a3fb927ecc0df2f78ba340cd6",
-          "size": 1832720
+          "name": "permissions-connector-s2-1.0.1-linux_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v1.0.1/permissions-connector-s2-1.0.1-linux_64.tar.bz2",
+          "sha256": "a56704ffef2e9ad24d7d989247e65eaa1fdb0e55c26ec0ace290317ec74439bd",
+          "size": 1841469
         },
         "windows": {
-          "name": "permissions-connector-s2-1.0.0-win_64.tar.bz2",
-          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v1.0.0/permissions-connector-s2-1.0.0-win_64.tar.bz2",
-          "sha256": "944c346ea02c4fa8d2b030a421688c4d8341b95793ddb8f06e179d7ede7ea2d5",
-          "size": 1761306
+          "name": "permissions-connector-s2-1.0.1-win_64.tar.bz2",
+          "url": "https://github.com/fr0nch/permissions-connector-s2/releases/download/v1.0.1/permissions-connector-s2-1.0.1-win_64.tar.bz2",
+          "sha256": "c5dadcc019b279aa8a251075ba268066a3e7726c470c564c77d437768b56ff87",
+          "size": 1767899
         }
       }
     },
