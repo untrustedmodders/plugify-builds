@@ -259,11 +259,3 @@ jobs:
           curl -fsS -X POST -H "Authorization: Bearer $SITE_TOKEN" -H "Accept: application/vnd.github+json"
           https://api.github.com/repos/untrustedmodders/untrustedmodders.github.io/dispatches
           -d '{"event_type":"builds-updated","client_payload":{"build":"${{ env.BUILD_ID }}","version":"${{ env.VERSION }}","channel":"${{ env.CHANNEL }}"}}'
-
-      - name: Notify Discord
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
-        if: env.DISCORD_WEBHOOK != '' && env.CHANNEL == 'stable'
-        run: >
-          curl -fsS -H "Content-Type: application/json" "$DISCORD_WEBHOOK"
-          -d "{\"content\":\"Plugify Source 2 $VERSION: https://github.com/${{ github.repository }}/releases/tag/$TAG\"}"

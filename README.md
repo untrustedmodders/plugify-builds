@@ -64,7 +64,7 @@ Upgrade check against a previous build: put its `build.lock.json` into `work/his
 | `build.yml` | PR, push to `main`, call from `release.yml` | builds and checks packs; `main` publishes the `plugify-source2-dev` prerelease; releases get assets, Pages and `index.json` |
 | `release.yml` | push to `main` | release-please (`plugify-source2-vX.Y.Z`) |
 
-Secrets: `BOT_TOKEN` (PAT for bot PRs so that CI runs on them), `SITE_DISPATCH_TOKEN` (`repository_dispatch` `builds-updated` to `untrustedmodders/untrustedmodders.github.io`), `DISCORD_WEBHOOK` (optional).
+Secrets: `BOT_TOKEN` (PAT for bot PRs so that CI runs on them), `SITE_DISPATCH_TOKEN` (`repository_dispatch` `builds-updated` to `untrustedmodders/untrustedmodders.github.io`). The site announces a stable release in Discord after it is deployed.
 
 ## index.json
 
